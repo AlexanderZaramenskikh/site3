@@ -1,10 +1,9 @@
 {% extends 'flatpages/default.html' %}
 
-{% load custom_filters %}
 {% load custom_tags %}
 
 {% block title %}
-Products
+Articles
 {% endblock title %}
 
 {% block content %}
@@ -16,32 +15,27 @@ Products
    </form>
 
    <hr>
-   {% if products %}
+   {% if articles %}
        <table>
            <tr>
-               <td>Название</td>
-               <td>Описание</td>
-               <td>Категория</td>
-               <td>Цена</td>
-               <td>Количество</td>
+               <td>Заголовок</td>
+               <td>Текст</td>
+               <td>Дата</td>
            </tr>
 
-           {% for product in products %}
+           {% for articl in articles %}
            <tr>
-               <td>{{ product.name }}</td>
-               <td>{{ product.description|truncatechars:15 }}</td>
-               <td>{{ product.category.name }}</td>
-               <td>{{ product.price|currency }}</td>
-               <td>{{ product.quantity }}</td>
+               <td>{{ articl.title }}</td>
+               <td>{{ articl.content|truncatechars:20 }}</td>
+               <td>{{ articl.date }}</td>
            </tr>
            {% endfor %}
 
        </table>
    {% else %}
-       <h2>Товаров нет!</h2>
+       <h2>Статей нет!</h2>
    {% endif %}
-
-   {% if page_obj.has_previous %}
+    {% if page_obj.has_previous %}
        <a href="?{% url_replace page=1 %}">1</a>
        {% if page_obj.previous_page_number != 1 %}
            ...
@@ -58,5 +52,4 @@ Products
            <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
        {% endif %}
    {% endif %}
-
 {% endblock content %}
