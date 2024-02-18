@@ -29,7 +29,14 @@ class News(models.Model):
     content = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return reverse('news_detail', args=[str(self.id)])
+
+
 class Articles(models.Model):
     title = models.CharField(max_length=30)
     content = models.CharField(max_length=150)
     date = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('articles_detail', args=[str(self.id)])
