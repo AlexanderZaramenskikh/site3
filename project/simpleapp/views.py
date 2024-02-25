@@ -4,6 +4,12 @@ from .models import News , Articles , Product
 from datetime import datetime
 from .filters import ProductFilter, NewsFilter
 from .forms import ProductForm, NewsForm , ArticlesForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+
+class ProtectedView(LoginRequiredMixin, UpdateView):
+    template_name = 'login.html'
+
 
 class ProductsList(ListView):
     model = Product
@@ -138,3 +144,4 @@ class ArticlesDelete(DeleteView):
     model = Articles
     template_name = 'articles_delete.html'
     success_url = reverse_lazy('articles_list')
+
